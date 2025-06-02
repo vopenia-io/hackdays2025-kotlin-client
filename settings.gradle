@@ -1,0 +1,35 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+def commonProps = new Properties()
+new File(rootProject.projectDir, "gradle.properties").withInputStream { commonProps.load(it) }
+ext.GRADLE_EXTENDED_VERSION_USED = commonProps.getProperty("GRADLE_EXTENDED_VERSION_USED")
+
+apply from: "https://raw.githubusercontent.com/the-inkwell/gradle-tools/${ext.GRADLE_EXTENDED_VERSION_USED}/extended.gradle"
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    versionCatalogs {
+        additionals {
+            from(files(gradle.extended.files.catalog))
+        }
+    }
+}
+
+includeBuild "gradle/extended/${ext.GRADLE_EXTENDED_VERSION_USED}/kt-plugins"
+
+include("konfig")
+include("tunnel-http")
+# sample app
+# include("shared")
+# include("androidApp")
