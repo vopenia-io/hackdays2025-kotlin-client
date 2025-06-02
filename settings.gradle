@@ -30,6 +30,6 @@ includeBuild "gradle/extended/${ext.GRADLE_EXTENDED_VERSION_USED}/kt-plugins"
 
 include("konfig")
 include("tunnel-http")
-# sample app
-# include("shared")
-# include("androidApp")
+// sample app
+// include("shared")
+// include("androidApp")
