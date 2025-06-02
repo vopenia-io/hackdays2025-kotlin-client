@@ -1,6 +1,6 @@
 [versions]
 meet-sdk = "0.0.1"
-vopenia = "0.0.9"
+vopenia = "0.0.9-alpha0"
 ktor = "3.0.1"
 
 google-services = "4.4.2"
