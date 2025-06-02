@@ -1,6 +1,7 @@
 const locales = [
-  'fr',
+  'de',
   'en',
+  'fr',
   'nl'
 ];
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_createMeeting">Maak een vergadering</string>
+    <string name="home_heading">Eenvoudige en veilige videoconferenties</string>
+    <string name="home_intro">Communiceer en werk gemakkelijk, zonder uw soevereiniteit in gevaar te brengen</string>
+    <string name="home_joinInputError">Gebruik een vergaderlink of code. Voorbeelden:</string>
+    <string name="home_joinInputExample">Een 10-lettercode zoals : abc-defg-hij</string>
+    <string name="home_joinInputLabel">Vergadering met link</string>
+    <string name="home_joinInputSubmit">Deelnemen aan de vergadering</string>
+    <string name="home_joinMeeting">Deelnemen aan een vergadering</string>
+    <string name="home_joinMeetingTipContent">U kunt deelnemen aan een vergadering door de volledige link in de adresbalk van de browser te plakken.</string>
+    <string name="home_joinMeetingTipHeading">Wist u dat?</string>
+    <string name="home_loginToCreateMeeting">Log in om een vergadering te maken</string>
+    <string name="home_moreLinkLabel">Meer informatie - nieuw tabblad</string>
+    <string name="home_moreLink">Meer informatie</string>
+    <string name="home_moreAbout">over Visio</string>
+    <string name="home_createMenu_laterOption">Maak een vergadering voor een latere datum</string>
+    <string name="home_createMenu_instantOption">Begin direct een vergadering</string>
+    <string name="home_laterMeetingDialog_heading">Uw verbindingsgegevens</string>
+    <string name="home_laterMeetingDialog_description">Stuur deze link naar de mensen die u wilt uitnodigen voor de vergadering. Zij kunnen deelnemen zonder ProConnect.</string>
+    <string name="home_laterMeetingDialog_copy">Kopieer de vergaderlink</string>
+    <string name="home_laterMeetingDialog_copied">Link gekopieerd naar klembord</string>
+    <string name="home_laterMeetingDialog_permissions">Mensen met deze link hebben uw toestemming niet nodig om deel te nemen aan deze vergadering.</string>
+    <string name="home_introSlider_previous_label">vorige</string>
+    <string name="home_introSlider_previous_tooltip">vorige</string>
+    <string name="home_introSlider_next_label">volgende</string>
+    <string name="home_introSlider_next_tooltip">volgende</string>
+    <string name="home_introSlider_beta_text">Word lid van de bèta</string>
+    <string name="home_introSlider_beta_tooltip">Vul het formulier in</string>
+    <string name="home_introSlider_slide1_title">Probeer Visio om uw dagelijkse taken te vereenvoudigen</string>
+    <string name="home_introSlider_slide1_body">Ontdek een intuïtieve en toegankelijke oplossing, ontworpen voor alle openbare partijen, hun partners en nog veel meer.</string>
+    <string name="home_introSlider_slide1_imgAlt">Illustratie van een gebruiksvriendelijk en toegankelijk samenwerkingsplatform</string>
+    <string name="home_introSlider_slide2_title">Houdt groepsgesprekken zonder limieten</string>
+    <string name="home_introSlider_slide2_body">Vergaderingen van onbeperkte lengte, met soepele en hoogwaardige communicatie, ongeacht de groepsgrootte.</string>
+    <string name="home_introSlider_slide2_imgAlt">Afbeelding van een virtuele ontmoeting met meerdere deelnemers die naadloos samenwerken</string>
+    <string name="home_introSlider_slide3_title">Transformeer uw vergaderingen met AI</string>
+    <string name="home_introSlider_slide3_body">Krijg nauwkeurige en bruikbare transcripties om uw productiviteit te stimuleren. Deze mogelijkheid is in bèta, probeer het nu!</string>
+    <string name="home_introSlider_slide3_imgAlt">Illustratie van AI-aangedreven notitie in een virtuele vergadering</string>
+</resources>

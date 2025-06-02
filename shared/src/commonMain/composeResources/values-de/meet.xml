@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_createMeeting">Meeting erstellen</string>
+    <string name="home_heading">Einfache und sichere Videokonferenzen</string>
+    <string name="home_intro">Kommunizieren und arbeiten Sie mühelos, ohne Ihre digitale Souveränität zu gefährden</string>
+    <string name="home_joinInputError">Verwenden Sie einen Meeting-Link oder -Code. Beispiele:</string>
+    <string name="home_joinInputExample">URL oder 10-stelliger Code</string>
+    <string name="home_joinInputLabel">Meeting-Link</string>
+    <string name="home_joinInputSubmit">Meeting beitreten</string>
+    <string name="home_joinMeeting">Meeting beitreten</string>
+    <string name="home_joinMeetingTipContent">Sie können einem Meeting beitreten, indem Sie den vollständigen Link in die Adressleiste Ihres Browsers einfügen.</string>
+    <string name="home_joinMeetingTipHeading">Wussten Sie schon?</string>
+    <string name="home_loginToCreateMeeting">Melden Sie sich an, um ein Meeting zu erstellen</string>
+    <string name="home_moreLinkLabel">Mehr erfahren – neues Tab</string>
+    <string name="home_moreLink">Mehr erfahren</string>
+    <string name="home_moreAbout">über Visio</string>
+    <string name="home_createMenu_laterOption">Meeting für später planen</string>
+    <string name="home_createMenu_instantOption">Sofort-Meeting starten</string>
+    <string name="home_laterMeetingDialog_heading">Ihre Zugangsdaten</string>
+    <string name="home_laterMeetingDialog_description">Senden Sie diesen Link an die Personen, die Sie zum Meeting einladen möchten. Sie können ohne ProConnect teilnehmen.</string>
+    <string name="home_laterMeetingDialog_copy">Meeting-Link kopieren</string>
+    <string name="home_laterMeetingDialog_copied">Link in die Zwischenablage kopiert</string>
+    <string name="home_laterMeetingDialog_permissions">Personen mit diesem Link benötigen keine Genehmigung, um diesem Meeting beizutreten.</string>
+    <string name="home_introSlider_previous_label">Zurück</string>
+    <string name="home_introSlider_previous_tooltip">Zurück</string>
+    <string name="home_introSlider_next_label">Weiter</string>
+    <string name="home_introSlider_next_tooltip">Weiter</string>
+    <string name="home_introSlider_beta_text">An der Beta teilnehmen</string>
+    <string name="home_introSlider_beta_tooltip">Formular ausfüllen</string>
+    <string name="home_introSlider_slide1_title">Testen Sie Visio für Ihre täglichen Aufgaben</string>
+    <string name="home_introSlider_slide1_body">Entdecken Sie eine intuitive und zugängliche Lösung, entwickelt für alle Mitarbeitenden im öffentlichen Dienst, ihre Partner und viele weitere.</string>
+    <string name="home_introSlider_slide1_imgAlt">Illustration einer benutzerfreundlichen und barrierefreien Kollaborationsplattform</string>
+    <string name="home_introSlider_slide2_title">Gruppenanrufe ohne Einschränkungen</string>
+    <string name="home_introSlider_slide2_body">Unbegrenzte Meeting-Dauer mit flüssiger, hochwertiger Kommunikation – unabhängig von der Gruppengröße.</string>
+    <string name="home_introSlider_slide2_imgAlt">Bild eines virtuellen Meetings mit mehreren nahtlos zusammenarbeitenden Teilnehmenden</string>
+    <string name="home_introSlider_slide3_title">Verwandeln Sie Ihre Meetings mit KI</string>
+    <string name="home_introSlider_slide3_body">Erhalten Sie präzise und verwertbare Transkripte zur Steigerung Ihrer Produktivität. Funktion in der Beta – jetzt testen!</string>
+    <string name="home_introSlider_slide3_imgAlt">Illustration KI-gestützter Notizen in einem virtuellen Meeting</string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_createMeeting">Create a meeting</string>
+    <string name="home_heading">Simple and Secure Video Conferencing</string>
+    <string name="home_intro">Communicate and work with ease, without compromising your sovereignty</string>
+    <string name="home_joinInputError">Use a meeting link or code. Examples:</string>
+    <string name="home_joinInputExample">URL or 10-letter code</string>
+    <string name="home_joinInputLabel">Meeting link</string>
+    <string name="home_joinInputSubmit">Join meeting</string>
+    <string name="home_joinMeeting">Join a meeting</string>
+    <string name="home_joinMeetingTipContent">You can join a meeting by pasting its full link in the browser's address bar.</string>
+    <string name="home_joinMeetingTipHeading">Did you know?</string>
+    <string name="home_loginToCreateMeeting">Login to create a meeting</string>
+    <string name="home_moreLinkLabel">Learn more - new tab</string>
+    <string name="home_moreLink">Learn more</string>
+    <string name="home_moreAbout">about Visio</string>
+    <string name="home_createMenu_laterOption">Create a meeting for a later date</string>
+    <string name="home_createMenu_instantOption">Start an instant meeting</string>
+    <string name="home_laterMeetingDialog_heading">Your connection details</string>
+    <string name="home_laterMeetingDialog_description">Send this link to the people you want to invite to the meeting. They will be able to join without ProConnect.</string>
+    <string name="home_laterMeetingDialog_copy">Copy the meeting link</string>
+    <string name="home_laterMeetingDialog_copied">Link copied to clipboard</string>
+    <string name="home_laterMeetingDialog_permissions">People with this link do not need your permission to join this meeting.</string>
+    <string name="home_introSlider_previous_label">previous</string>
+    <string name="home_introSlider_previous_tooltip">previous</string>
+    <string name="home_introSlider_next_label">next</string>
+    <string name="home_introSlider_next_tooltip">next</string>
+    <string name="home_introSlider_beta_text">Join the beta</string>
+    <string name="home_introSlider_beta_tooltip">Fill out the form</string>
+    <string name="home_introSlider_slide1_title">Try Visio to simplify your daily tasks</string>
+    <string name="home_introSlider_slide1_body">Discover an intuitive and accessible solution, designed for all public agents, their partners, and much more.</string>
+    <string name="home_introSlider_slide1_imgAlt">Illustration of a user-friendly and accessible collaboration platform</string>
+    <string name="home_introSlider_slide2_title">Host group calls without limits</string>
+    <string name="home_introSlider_slide2_body">Unlimited time meetings, with smooth and high-quality communication, no matter the group size.</string>
+    <string name="home_introSlider_slide2_imgAlt">Image of a virtual meeting with multiple participants collaborating seamlessly</string>
+    <string name="home_introSlider_slide3_title">Transform your meetings with AI</string>
+    <string name="home_introSlider_slide3_body">Get accurate and actionable transcripts to boost your productivity. Feature in beta—try it now!</string>
+    <string name="home_introSlider_slide3_imgAlt">Illustration of AI-powered note-taking in a virtual meeting</string>
+</resources>
