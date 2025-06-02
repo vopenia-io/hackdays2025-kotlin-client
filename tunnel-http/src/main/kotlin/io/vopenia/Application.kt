@@ -9,7 +9,7 @@ fun main(args: Array<String>) {
         embeddedServer(
             Netty,
             port = 8181,
-            host = "0.0.0.1"
+            host = "0.0.0.0"
         ) {
             configureRouting()
         }.start(wait = true)

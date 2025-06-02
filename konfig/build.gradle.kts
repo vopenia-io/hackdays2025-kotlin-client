@@ -66,7 +66,7 @@ buildkonfig {
             buildConfigField(
                 FieldSpec.Type.STRING,
                 it.first,
-                rootProject.extra[it.second] as String
+                "${rootProject.extra[it.second]}"
             )
         }
     }
