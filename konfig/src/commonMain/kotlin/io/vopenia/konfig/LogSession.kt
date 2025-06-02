@@ -8,26 +8,24 @@ import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
-import io.ktor.http.HttpStatusCode
 import io.ktor.http.Parameters
 import io.ktor.http.Url
 
 class LogSession {
     private val cookieStorage = AcceptAllCookiesStorage()
-    private val defaultConfig = Configuration(
-        enableLogs = true,
-        installCookies = true,
-        followRedirects = false,
-        cookieStorage = cookieStorage
-    )
     private val clientWithoutRedirects = createClient(
-        defaultConfig
+        Configuration(
+            enableLogs = false,
+            installCookies = true,
+            followRedirects = false,
+            cookieStorage = cookieStorage
+        )
     ) {
         // nothing
     }
     private val clientWithRedirects = createClient(
         Configuration(
-            enableLogs = true,
+            enableLogs = false,
             installCookies = true,
             followRedirects = true,
             cookieStorage = cookieStorage
@@ -40,13 +38,11 @@ class LogSession {
         username: String,
         password: String
     ): AuthenticationInformation {
-        println("HTTP CLIENT $defaultConfig")
         /**
          * GET THE ACTUAL REALM AUTHENTICATION URL
          */
-        println(clientWithoutRedirects.attributes)
         val url =
-            "${Konfig.tunnelApiForwarder}/api/v1.0/authenticate/?silent=false&returnTo=http%3A%2F%2Flocalhost%3A3000%2F"
+            "http://localhost:8071/api/v1.0/authenticate/?silent=false&returnTo=http%3A%2F%2Flocalhost%3A3000%2F"
 
         val answer = clientWithoutRedirects.get(url)
 
@@ -55,18 +51,10 @@ class LogSession {
         /**
          * GET THE ACTUAL FORM URL WHICH WILL BE USED TO POST THE USERNAME/PASSWORD
          */
-        var redirectRealms = answer.headers["location"]!!
+        val redirectRealms = answer.headers["location"]!!
         val redirectAnswer = clientWithoutRedirects.get(redirectRealms)
 
         val content = redirectAnswer.bodyAsText()
-        if (redirectAnswer.status == HttpStatusCode.BadRequest) {
-            listOf("http", "https").forEach {
-                /*redirectRealms = redirectRealms.replace(
-                    "${it}%3A%2F%2F${Konfig.mainHost}",
-                    "${it}%3A%2F%2Flocalhost"
-                )*/
-            }
-        }
 
         println("redirectRealms -> $redirectRealms")
         println(content)
@@ -75,19 +63,6 @@ class LogSession {
         val action = forms[1].split("action=\"")
         val actualAction = action[1].split("\"")[0].replace("&amp;", "&")
 
-        val test = clientWithoutRedirects.post(actualAction) {
-            setBody(
-                FormDataContent(
-                    Parameters.build {
-                        append("username", username)
-                        append("password", password)
-                        append("credentialId", "")
-                    }
-                )
-            )
-        }
-
-        throw IllegalStateException("stop here")
         val postUserInformation = clientWithRedirects.post(actualAction) {
             setBody(
                 FormDataContent(
@@ -104,7 +79,7 @@ class LogSession {
         // create the last cookie
         clientWithRedirects.get(postActualRedirect)
 
-        val cookies = cookieStorage.get(Url("http://${Konfig.mainHost}"))
+        val cookies = cookieStorage.get(Url("http://localhost"))
 
         return AuthenticationInformation(
             meetSessionId = cookies.find { it.name == "meet_sessionid" }!!.value,
