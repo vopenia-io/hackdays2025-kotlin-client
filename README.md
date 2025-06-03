@@ -8,21 +8,35 @@ A modern video conferencing solution developed in Kotlin, designed to offer seam
 - 👥 User management
 - ...
 
-## 📦 User API
+## 📦 SDKs
 
-TODO
+In order to compile and execute this SDK locally, you will need to install the following SDKs locally :
 
-## 🔐 Test Configuration
+- [Vopenia's LiveKit wrapper](https://github.com/vopenia-io/client-sdk-kotlin-multiplatform)
+- [Visio's SDK](https://github.com/vopenia-io/kotlin-meet-sdk)
+- [LiveKit swift](https://github.com/codlab/LiveKitClient)
 
-TODO
+The LiveKitClient for Swift needs to be in the same folder as this repositories and the LiveKit wrapper
 
-## 🚀 Install the Project
+### Local maven installation
 
-TODO
+Inside both the Kotlin Multiplatform projects, run the following in the order :
 
-## Tests on mobile devices
+```bash
+cd client-sdk-kotlin-multiplatform
+bash ./gradlew publishToMavenLocal
 
-TODO
+cd kotlin-meet-sdk
+bash ./gradlew publishToMavenLocal
+```
+
+## 🔐 Local Dev Tunneling
+
+In order to join Visio's meeting locally, the localhost:8071 needs to be exposed and the tokens needs to be fetched locally.
+
+Inside the `kotlin-meet-sdk`, follow the instructions from the [README](https://github.com/vopenia-io/kotlin-meet-sdk)
+
+Note : both devices needs to be on the same network in order for it to work
 
 ## 📄 Licence
 
