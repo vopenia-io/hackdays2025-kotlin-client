@@ -167,6 +167,8 @@ class AppModelImpl : StateViewModel<AppModelState>(AppModelState(NavigateTo.Init
 
             updateState { copy(waitingRoomValidation = management.currentRequestEntryStatus.status) }
             roomObject.connect()
+
+            show(NavigateTo.Room())
         }
     }
 
