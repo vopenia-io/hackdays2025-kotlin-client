@@ -83,21 +83,9 @@ fun JoinScreen(
                         onValueChange = { model.participant = it }
                     )
 
-                    OutlinedTextField(
-                        modifier = internalModifier,
-                        label = {
-                            TextNormal(
-                                text = "Room's Name"
-                            )
-                        },
-                        value = state.room,
-                        onValueChange = { model.room = it }
-                    )
-
                     Button(
                         modifier = internalModifier,
-                        enabled = model.room.text.isNotEmpty() &&
-                                model.participant.text.isNotEmpty(),
+                        enabled = model.participant.text.isNotEmpty(),
                         onClick = { model.join() }
                     ) {
                         TextNormal(

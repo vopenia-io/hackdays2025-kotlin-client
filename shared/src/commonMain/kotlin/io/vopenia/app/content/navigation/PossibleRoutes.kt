@@ -4,6 +4,7 @@ enum class PossibleRoutes(val impl: Route) {
     Initialize(RouteInitialize()),
     Main(RouteMain()),
     Room(RouteRoom()),
+    Join(RouteJoin()),
     Settings(RouteSettings())
     ;
 

@@ -31,7 +31,7 @@ fun MainBlock(
 ) {
     val state by appModel.states.collectAsState()
     var showLogin by remember { mutableStateOf(false) }
-    val showJoin by remember { mutableStateOf(false) }
+    var showJoin by remember { mutableStateOf(false) }
 
     if (showLogin) {
         PromptAccount(
@@ -41,6 +41,19 @@ fun MainBlock(
             },
             onConfirm = {
                 showLogin = false
+            }
+        )
+    }
+    if (showJoin) {
+        PromptRoom(
+            appModel,
+            onDismiss = {
+                showJoin = false
+            },
+            onConfirm = {
+                appModel.showWaitingRoom(it) {
+                    // showJoin = false
+                }
             }
         )
     }
@@ -62,11 +75,12 @@ fun MainBlock(
 
         if (null != state.session?.userName) {
             MainAuthenticated(
-                modifier, onCreate = {
+                modifier,
+                onCreate = {
                     // todo
                 },
                 onJoin = {
-                    // todo
+                    showJoin = true
                 }
             )
         } else {
@@ -75,8 +89,9 @@ fun MainBlock(
                     showLogin = true
                 },
                 onJoin = {
-                    // TODO
-                })
+                    showLogin = true
+                }
+            )
         }
     }
 }

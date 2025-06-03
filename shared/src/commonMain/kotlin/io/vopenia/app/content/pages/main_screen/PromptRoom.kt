@@ -10,13 +10,11 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.TextButton
+import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,38 +27,35 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import eu.codlab.compose.theme.LocalDarkTheme
-import eu.codlab.compose.widgets.CustomOutlinedEditText
 import eu.codlab.compose.widgets.TextNormal
 import io.vopenia.app.AppModel
 import io.vopenia.app.LocalFontSizes
-import io.vopenia.app.content.AppContent
 import io.vopenia.app.theme.AppColor
 import io.vopenia.app.theme.defaultCardBackground
 import io.vopenia.app.utils.localized
 import io.vopenia.meet.shared.res.Res
 import io.vopenia.meet.shared.res.cancel
-import io.vopenia.meet.shared.res.meet_connect_yourself
-import io.vopenia.meet.shared.res.meet_password
-import io.vopenia.meet.shared.res.meet_username
-import io.vopenia.meet.shared.res.validate
-import org.jetbrains.compose.resources.stringResource
+import io.vopenia.meet.shared.res.home_joinInputExample
+import io.vopenia.meet.shared.res.home_joinInputLabel
+import io.vopenia.meet.shared.res.home_joinInputSubmit
+import io.vopenia.meet.shared.res.home_joinMeeting
+import io.vopenia.meet.shared.res.home_joinMeetingTipContent
+import io.vopenia.meet.shared.res.home_joinMeetingTipHeading
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PromptAccount(
+fun PromptRoom(
     appModel: AppModel,
     onDismiss: () -> Unit,
-    onConfirm: () -> Unit
+    onConfirm: (String) -> Unit
 ) {
     val state by appModel.states.collectAsState()
 
-    var username by remember { mutableStateOf(TextFieldValue("")) }
-    var password by remember { mutableStateOf(TextFieldValue("")) }
+    var roomCode by remember { mutableStateOf(TextFieldValue("")) }
 
     BasicAlertDialog(
         onDismissRequest = onDismiss,
@@ -68,8 +63,8 @@ fun PromptAccount(
     ) {
         Card(
             modifier = Modifier
-                .widthIn(100.dp, 200.dp)
-                .heightIn(100.dp, 300.dp),
+                .widthIn(100.dp, 250.dp)
+                .heightIn(100.dp, 400.dp),
             backgroundColor = defaultCardBackground(),
         ) {
             Column(
@@ -79,17 +74,22 @@ fun PromptAccount(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 TextNormal(
-                    text = Res.string.meet_connect_yourself.localized(),
+                    text = Res.string.home_joinMeeting.localized(),
                     fontSize = LocalFontSizes.current.joinRoom.title,
                     fontWeight = FontWeight.Bold
                 )
 
                 TextNormal(
-                    text = Res.string.meet_username.localized()
+                    text = Res.string.home_joinInputExample.localized(),
                 )
+
+                TextNormal(
+                    text = Res.string.home_joinInputLabel.localized(),
+                )
+
                 OutlinedTextField(
-                    value = username,
-                    onValueChange = { username = it },
+                    value = roomCode,
+                    onValueChange = { roomCode = it },
                     colors = if (LocalDarkTheme.current) {
                         TextFieldDefaults.outlinedTextFieldColors(
                             textColor = AppColor.WhiteCream,
@@ -101,25 +101,6 @@ fun PromptAccount(
                     }
                 )
 
-                TextNormal(
-                    text = Res.string.meet_password.localized()
-                )
-                OutlinedTextField(
-                    value = password,
-                    onValueChange = { password = it },
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        keyboardType = KeyboardType.Password
-                    ),
-                    colors = if (LocalDarkTheme.current) {
-                        TextFieldDefaults.outlinedTextFieldColors(
-                            textColor = AppColor.WhiteCream,
-                            unfocusedBorderColor = AppColor.WhiteCream,
-                            focusedBorderColor = AppColor.BlueLight
-                        )
-                    } else {
-                        TextFieldDefaults.outlinedTextFieldColors()
-                    }
-                )
 
                 Row(
                     Modifier.fillMaxWidth(),
@@ -129,14 +110,13 @@ fun PromptAccount(
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = AppColor.WhiteCream
                         ),
-                        enabled = !state.authenticating,
                         elevation = ButtonDefaults.elevation(0.dp),
                         onClick = {
                             onDismiss()
                         }
                     ) {
                         TextNormal(
-                            text = stringResource(Res.string.cancel),
+                            text = Res.string.cancel.localized(),
                             color = AppColor.GrayExtraDark
                         )
                     }
@@ -147,22 +127,27 @@ fun PromptAccount(
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = AppColor.Blue
                         ),
-                        enabled = username.text.isNotBlank() && password.text.isNotBlank() &&
-                                !state.authenticating,
+                        enabled = roomCode.text.isNotBlank() && !state.loadRoomInfo,
                         onClick = {
-                            appModel.login(username.text, password.text) { success ->
-                                if (success) {
-                                    onConfirm()
-                                }
-                            }
+                            onConfirm(roomCode.text)
                         }
                     ) {
                         TextNormal(
                             color = Color.White,
-                            text = stringResource(Res.string.validate)
+                            text = Res.string.home_joinInputSubmit.localized()
                         )
                     }
                 }
+
+                TextNormal(
+                    text = Res.string.home_joinMeetingTipHeading.localized(),
+                    fontSize = LocalFontSizes.current.joinRoom.title,
+                    fontWeight = FontWeight.Bold
+                )
+                TextNormal(
+                    text = Res.string.home_joinMeetingTipContent.localized(),
+                    fontWeight = FontWeight.Bold
+                )
             }
         }
     }

@@ -19,11 +19,5 @@ class JoinScreenModel(
             launch { updateState { copy(participant = value) } }
         }
 
-    var room: TextFieldValue
-        get() = states.value.room
-        set(value) {
-            launch { updateState { copy(room = value) } }
-        }
-
-    fun join() = app.joinRoom(participant.text, room.text)
+    fun join() = app.joinRoom(participant.text)
 }

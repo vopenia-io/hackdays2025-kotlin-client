@@ -33,7 +33,11 @@ data class AppModelState(
     val session: SavedSession? = null,
     val room: Room? = null,
 
-    val authenticating: Boolean = false
+    val authenticating: Boolean = false,
+
+    val loadRoomInfo: Boolean = false,
+    val waitingRoomCode: String? = null,
+    val waitingRoomValidation: RequestEntryStatus = RequestEntryStatus.Idle
 )
 
 interface AppModel {
@@ -48,15 +52,17 @@ interface AppModel {
 
     fun initialize()
 
-    fun joinRoom(participant: String, room: String)
+    fun joinRoom(participant: String)
 
-    fun login(participant: String, room: String, callback: () -> Unit)
+    fun login(participant: String, room: String, callback: (Boolean) -> Unit)
 
     fun leaveRoom()
 
     fun show(navigateTo: NavigateTo)
 
     fun setAppBarState(appBarState: AppBarState)
+
+    fun showWaitingRoom(roomCode: String, onError: () -> Unit)
 }
 
 class AppModelPreview : AppModel {
@@ -74,11 +80,15 @@ class AppModelPreview : AppModel {
         // nothing
     }
 
-    override fun joinRoom(participant: String, room: String) {
+    override fun joinRoom(participant: String) {
         // nothing
     }
 
-    override fun login(username: String, password: String, callback: () -> Unit) {
+    override fun login(username: String, password: String, callback: (Boolean) -> Unit) {
+        // nothing
+    }
+
+    override fun showWaitingRoom(roomCode: String, onError: () -> Unit) {
         // nothing
     }
 
@@ -144,36 +154,44 @@ class AppModelImpl : StateViewModel<AppModelState>(AppModelState(NavigateTo.Init
         }
     }
 
-    override fun joinRoom(participant: String, room: String) {
-        launch {
-            val roomObject = session.room(room)
-            updateState { copy(room = roomObject) }
+    override fun joinRoom(participant: String) {
+        safeLaunch(onError = { it.printStackTrace() }) {
+            val roomObject = states.value.room!!
+            val management = roomObject.requestEntry(participant)
 
-            show(NavigateTo.Room())
-
-            val management = roomObject!!.requestEntry(participant)
+            updateState { copy(waitingRoomValidation = management.currentRequestEntryStatus.status) }
 
             while (management.currentRequestEntryStatus.status != RequestEntryStatus.Accepted) {
                 delay(5.seconds)
             }
 
+            updateState { copy(waitingRoomValidation = management.currentRequestEntryStatus.status) }
             roomObject.connect()
         }
     }
 
-    override fun login(username: String, password: String, callback: () -> Unit) {
+    override fun login(username: String, password: String, callback: (Boolean) -> Unit) {
         safeLaunch {
-            updateState { copy(authenticating = true) }
+            try {
+                updateState { copy(authenticating = true) }
 
-            val info = BackendConnection().token(username, password)
+                val info = BackendConnection().token(username, password)
 
-            updateState {
-                copy(
-                    authenticating = true,
-                    session = SavedSession(userName = username, password = password)
-                )
+                updateState {
+                    copy(
+                        authenticating = true,
+                        session = SavedSession(userName = username, password = password)
+                    )
+                }
+                callback(true)
+            } catch (err: Throwable) {
+                updateState {
+                    copy(
+                        authenticating = false
+                    )
+                }
+                callback(false)
             }
-            callback()
         }
     }
 
@@ -211,6 +229,35 @@ class AppModelImpl : StateViewModel<AppModelState>(AppModelState(NavigateTo.Init
         safeLaunch {
             updateState {
                 copy(appBarState = appBarState)
+            }
+        }
+    }
+
+    override fun showWaitingRoom(roomCode: String, onError: () -> Unit) {
+        launch {
+            try {
+                updateState {
+                    copy(
+                        loadRoomInfo = true,
+                        waitingRoomCode = roomCode
+                    )
+                }
+                val roomObject = session.room(roomCode)!!
+
+                updateState {
+                    copy(
+                        loadRoomInfo = false,
+                        room = roomObject
+                    )
+                }
+
+                show(NavigateTo.Join())
+            } catch (err: Throwable) {
+                updateState {
+                    copy(
+                        loadRoomInfo = false
+                    )
+                }
             }
         }
     }

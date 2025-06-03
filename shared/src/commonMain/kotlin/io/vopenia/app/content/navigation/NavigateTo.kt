@@ -38,6 +38,16 @@ sealed class NavigateTo {
         )
     }
 
+    class Join() : NavigateTo() {
+        override val route = "/join"
+        override val popBackStack = true
+
+        override val options = NavOptions(
+            launchSingleTop = false,
+            popUpTo = PopUpTo.First(true)
+        )
+    }
+
     class Room() : NavigateTo() {
         override val route = "/room"
         override val popBackStack = true
