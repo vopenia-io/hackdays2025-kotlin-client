@@ -15,9 +15,11 @@ import io.vopenia.konfig.Konfig
 import io.vopenia.sdk.VisioSdk
 import io.vopenia.sdk.room.RequestEntryStatus
 import io.vopenia.sdk.room.Room
+import korlibs.io.lang.toByteArray
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import moe.tlaster.precompose.navigation.Navigator
 import kotlin.time.Duration.Companion.milliseconds
@@ -178,11 +180,14 @@ class AppModelImpl : StateViewModel<AppModelState>(AppModelState(NavigateTo.Init
                 updateState { copy(authenticating = true) }
 
                 val info = BackendConnection().token(username, password)
+                val newSession = SavedSession(userName = username, password = password)
+
+                sessionFile.write(Json.encodeToString(newSession).toByteArray())
 
                 updateState {
                     copy(
                         authenticating = true,
-                        session = SavedSession(userName = username, password = password)
+                        session = newSession
                     )
                 }
                 callback(true)
