@@ -9,3 +9,10 @@ fun SettingsScreen(
 ) {
 
 }
+
+@Composable
+fun MainScreen(
+    modifier: Modifier
+) {
+
+}

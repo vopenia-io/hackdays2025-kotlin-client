@@ -10,6 +10,7 @@ data class FontSizes(
     val popup: PopupSize = PopupSize(),
     val actionBar: ActionBar = ActionBar(),
 
+    val home: HomeSize = HomeSize(),
     val joinRoom: JoinRoomSize = JoinRoomSize(),
     val avatarSize: AvatarSize = AvatarSize()
 )
@@ -36,6 +37,12 @@ data class JoinRoomSize(
     val copyright: TextUnit = 8.sp
 )
 
+data class HomeSize(
+    val subTitle: TextUnit = 18.sp,
+    val title: TextUnit = 30.sp,
+    val copyright: TextUnit = 8.sp
+)
+
 data class AvatarSize(
     val userName: TextUnit = 12.sp
 )
@@ -59,6 +66,11 @@ private val jvmFontSizes = FontSizes(
     joinRoom = JoinRoomSize(
         subTitle = 14.sp,
         title = 18.sp,
+        copyright = 6.sp
+    ),
+    home = HomeSize(
+        subTitle = 14.sp,
+        title = 26.sp,
         copyright = 6.sp
     ),
     avatarSize = AvatarSize(

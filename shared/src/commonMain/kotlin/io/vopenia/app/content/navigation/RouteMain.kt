@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import io.vopenia.app.AppModel
-import io.vopenia.app.content.navigation.Route
-import io.vopenia.app.content.pages.join.JoinScreen
+import io.vopenia.app.LocalApp
+import io.vopenia.app.content.pages.main_screen.MainScreen
 import io.vopenia.app.widgets.AppBarState
 import io.vopenia.app.widgets.MenuItem
 import moe.tlaster.precompose.navigation.BackStackEntry
@@ -19,7 +19,7 @@ class RouteMain : Route(
 ) {
     @Composable
     override fun scene(backStackEntry: BackStackEntry) {
-        JoinScreen(Modifier.fillMaxSize())
+        MainScreen(Modifier.fillMaxSize(), LocalApp.current)
     }
 
     override fun onEntryIsActive(
