@@ -26,3 +26,5 @@ gradle/extended
 *.keystore
 google-services.json
 *-credentials.json
+
+Pods/

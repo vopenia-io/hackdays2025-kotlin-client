@@ -3,6 +3,7 @@ plugins {
     alias(additionals.plugins.android.library)
     alias(additionals.plugins.jetbrains.compose)
     alias(additionals.plugins.kotlin.serialization)
+    alias(additionals.plugins.kotlin.cocoapods)
     alias(additionals.plugins.compose.compiler)
     id("jvmCompat")
 }
@@ -15,6 +16,19 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
     jvm()
+
+    cocoapods {
+        version = "1.0.0"
+        summary = "Some description for the Shared Module"
+        homepage = "Link to the Shared Module homepage"
+        ios.deploymentTarget = "14.1"
+        podfile = project.file("../appIos/Podfile")
+        framework {
+            baseName = "shared"
+            isStatic = true
+            embedBitcode("disable")
+        }
+    }
 
     sourceSets {
         commonMain.dependencies {

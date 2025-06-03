@@ -1,0 +1,40 @@
+PODS:
+  - DequeModule (1.0.4)
+  - LiveKitClient (2.3.1):
+    - DequeModule
+    - LiveKitWebRTC (= 125.6422.24)
+    - Logging
+    - SwiftProtobuf
+  - LiveKitWebRTC (125.6422.24)
+  - Logging (1.4.0)
+  - shared (1.0.0)
+  - SwiftProtobuf (1.30.0)
+
+DEPENDENCIES:
+  - LiveKitClient (from `../../LiveKitClient`)
+  - shared (from `../shared`)
+
+SPEC REPOS:
+  trunk:
+    - DequeModule
+    - LiveKitWebRTC
+    - Logging
+    - SwiftProtobuf
+
+EXTERNAL SOURCES:
+  LiveKitClient:
+    :path: "../../LiveKitClient"
+  shared:
+    :path: "../shared"
+
+SPEC CHECKSUMS:
+  DequeModule: b3a4cb7a72901d2b182b5bf4721f42ba1e149cdf
+  LiveKitClient: 384ffe0e6437869a676c274847cd787e8bd23cf0
+  LiveKitWebRTC: fd00dc47ae8d054eac1acda87aab5d61d045ace1
+  Logging: beeb016c9c80cf77042d62e83495816847ef108b
+  shared: c8f00155f216956c66c81b8d65fe49de73393b18
+  SwiftProtobuf: 3697407f0d5b23bedeba9c2eaaf3ec6fdff69349
+
+PODFILE CHECKSUM: 6910f600e1f7ed6c822acb208e1c6427a888e12b
+
+COCOAPODS: 1.16.2
