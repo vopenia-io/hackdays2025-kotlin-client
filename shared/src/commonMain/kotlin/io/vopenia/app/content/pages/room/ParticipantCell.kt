@@ -28,6 +28,7 @@ import eu.codlab.compose.widgets.TextNormal
 import io.vopenia.app.LocalFontSizes
 import io.vopenia.app.PreviewApp
 import io.vopenia.app.theme.AppColor
+import io.vopenia.app.utils.FakeRemoteParticipant
 import io.vopenia.sdk.compose.ScaleType
 import io.vopenia.sdk.compose.VideoView
 import io.vopenia.sdk.room.Room
@@ -35,7 +36,7 @@ import io.vopenia.sdk.room.Room
 @Composable
 fun ParticipantCell(
     modifier: Modifier,
-    room: Room,
+    room: Room? = null,
     participant: Participant<*, *, *, *>,
     videoTrack: IVideoTrack? = null
 ) {
@@ -51,7 +52,7 @@ fun ParticipantCell(
                 .aspectRatio(1f),
             contentAlignment = Alignment.BottomStart
         ) {
-            if (null != videoTrack) {
+            if (null != videoTrack && null != room) {
                 RenderVideoTrack(
                     Modifier.fillMaxSize(),
                     avatarTint,
@@ -133,10 +134,9 @@ fun RenderUserName(
 @Composable
 private fun ParticipantCellPreview() {
     PreviewApp {
-        /*ParticipantCell(
+        ParticipantCell(
             modifier = Modifier.fillMaxSize(),
-            room = Room(Session("", false) { null!! }),
             participant = FakeRemoteParticipant(),
-        )*/
+        )
     }
 }
