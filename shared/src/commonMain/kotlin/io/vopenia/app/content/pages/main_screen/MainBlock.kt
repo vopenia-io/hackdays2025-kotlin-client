@@ -1,14 +1,15 @@
 package io.vopenia.app.content.pages.main_screen
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -18,9 +19,7 @@ import io.vopenia.app.AppModel
 import io.vopenia.app.AppModelPreview
 import io.vopenia.app.LocalFontSizes
 import io.vopenia.app.PreviewApp
-import io.vopenia.app.theme.WindowType
 import io.vopenia.app.utils.localized
-import io.vopenia.app.window.LocalFrame
 import io.vopenia.meet.shared.res.Res
 import io.vopenia.meet.shared.res.home_heading
 import io.vopenia.meet.shared.res.home_intro
@@ -31,6 +30,20 @@ fun MainBlock(
     appModel: AppModel
 ) {
     val state by appModel.states.collectAsState()
+    var showLogin by remember { mutableStateOf(false) }
+    val showJoin by remember { mutableStateOf(false) }
+
+    if (showLogin) {
+        PromptAccount(
+            appModel,
+            onDismiss = {
+                showLogin = false
+            },
+            onConfirm = {
+                showLogin = false
+            }
+        )
+    }
 
     Column(
         modifier = modifier.padding(32.dp),
@@ -48,9 +61,22 @@ fun MainBlock(
         )
 
         if (null != state.session?.userName) {
-            MainAuthenticated(modifier)
+            MainAuthenticated(
+                modifier, onCreate = {
+                    // todo
+                },
+                onJoin = {
+                    // todo
+                }
+            )
         } else {
-            MainUnauthenticated(modifier)
+            MainUnauthenticated(
+                modifier, onLog = {
+                    showLogin = true
+                },
+                onJoin = {
+                    // TODO
+                })
         }
     }
 }

@@ -42,7 +42,7 @@ fun MainUnauthenticated(
             )
         }
 
-    Column {
+    Column(modifier) {
         Button(
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = colors.first().first
@@ -88,7 +88,7 @@ fun MainAuthenticated(
             )
         }
 
-    Column {
+    Column(modifier) {
         Button(
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = colors.first().first

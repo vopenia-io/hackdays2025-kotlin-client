@@ -31,7 +31,9 @@ data class AppModelState(
     var initialized: Boolean = false,
     var loading: Boolean = false,
     val session: SavedSession? = null,
-    val room: Room? = null
+    val room: Room? = null,
+
+    val authenticating: Boolean = false
 )
 
 interface AppModel {
@@ -47,6 +49,8 @@ interface AppModel {
     fun initialize()
 
     fun joinRoom(participant: String, room: String)
+
+    fun login(participant: String, room: String, callback: () -> Unit)
 
     fun leaveRoom()
 
@@ -74,6 +78,10 @@ class AppModelPreview : AppModel {
         // nothing
     }
 
+    override fun login(username: String, password: String, callback: () -> Unit) {
+        // nothing
+    }
+
     override fun leaveRoom() {
         // nothing
     }
@@ -92,7 +100,11 @@ class AppModelImpl : StateViewModel<AppModelState>(AppModelState(NavigateTo.Init
     private val session = VisioSdk.openSession(
         "${Konfig.tunnelApiForwarder}/api/v1.0",
         false
-    ) { backendConnection.token("meet", "meet") }
+    ) {
+        states.value.session?.let {
+            backendConnection.token(it.userName ?: "", it.password ?: "")
+        } ?: throw IllegalStateException("Couldn't connect the user")
+    }
     override var navigator: Navigator? = null
     override var scaffoldState: ScaffoldState? = null
 
@@ -146,6 +158,22 @@ class AppModelImpl : StateViewModel<AppModelState>(AppModelState(NavigateTo.Init
             }
 
             roomObject.connect()
+        }
+    }
+
+    override fun login(username: String, password: String, callback: () -> Unit) {
+        safeLaunch {
+            updateState { copy(authenticating = true) }
+
+            val info = BackendConnection().token(username, password)
+
+            updateState {
+                copy(
+                    authenticating = true,
+                    session = SavedSession(userName = username, password = password)
+                )
+            }
+            callback()
         }
     }
 

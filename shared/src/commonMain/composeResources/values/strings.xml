@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+    <string name="validate">Validate</string>
+
+    <string name="meet_connect_yourself">Connect Yourself</string>
+    <string name="meet_username">Username</string>
+    <string name="meet_password">Password</string>
+</resources>
