@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import com.vopenia.livekit.participant.Participant
+import com.vopenia.livekit.participant.local.LocalParticipant
 import com.vopenia.livekit.participant.track.IVideoTrack
 import de.drick.compose.hotpreview.HotPreview
 import eu.codlab.compose.theme.LocalDarkTheme
@@ -57,7 +58,8 @@ fun ParticipantCell(
                     Modifier.fillMaxSize(),
                     avatarTint,
                     room,
-                    videoTrack
+                    videoTrack,
+                    isLocal = participant is LocalParticipant
                 )
             } else {
                 RenderAvatar(Modifier.fillMaxSize(), avatarTint)
@@ -75,16 +77,20 @@ private fun RenderVideoTrack(
     modifier: Modifier,
     avatarTint: Color,
     room: Room,
-    videoTrack: IVideoTrack
+    videoTrack: IVideoTrack,
+    isLocal: Boolean = false
 ) {
     val trackState by videoTrack.state.collectAsState()
 
-    if (trackState.published && !trackState.muted && trackState.active) {
+    val considerActive = isLocal || trackState.active
+
+    if (trackState.published && !trackState.muted && considerActive) {
         VideoView(
             modifier = modifier,
             room = room, // TODO make a compose wrapper
             track = videoTrack,
-            scaleType = ScaleType.Fill
+            scaleType = ScaleType.Fill,
+            isMirror = isLocal
         )
     } else {
         RenderAvatar(modifier, avatarTint)

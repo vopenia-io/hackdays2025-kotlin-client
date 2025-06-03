@@ -21,6 +21,9 @@ fun LocalParticipantCell(
     val participantState by localParticipant.state.collectAsState()
     val isSpeaking by localParticipant.isSpeakingState.collectAsState()
 
+    val videoTracks by localParticipant.videoTracks.collectAsState()
+    val videoTrack = videoTracks.first()
+
     Card {
         Column(modifier = modifier) {
             TextNormal(
