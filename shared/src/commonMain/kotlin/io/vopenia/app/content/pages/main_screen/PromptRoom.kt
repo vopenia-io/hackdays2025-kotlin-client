@@ -55,7 +55,7 @@ fun PromptRoom(
 ) {
     val state by appModel.states.collectAsState()
 
-    var roomCode by remember { mutableStateOf(TextFieldValue("")) }
+    var roomCode by remember { mutableStateOf(TextFieldValue(state.waitingRoomCode ?: "")) }
 
     BasicAlertDialog(
         onDismissRequest = onDismiss,

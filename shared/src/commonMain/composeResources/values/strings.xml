@@ -7,4 +7,5 @@
     <string name="meet_connect_yourself">Connect Yourself</string>
     <string name="meet_username">Username</string>
     <string name="meet_password">Password</string>
+    <string name="disconnect">Disconnect</string>
 </resources>

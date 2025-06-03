@@ -14,12 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.vopenia.sdk.utils.Log
 import eu.codlab.compose.widgets.StatusBarAndNavigation
-import eu.codlab.safearea.views.SafeArea
+import eu.codlab.compose.widgets.TextNormal
 import eu.codlab.viewmodel.rememberViewModel
 import io.vopenia.app.AppModel
 import io.vopenia.app.LocalApp
 import io.vopenia.app.theme.WindowType
 import io.vopenia.app.window.LocalFrame
+import io.vopenia.sdk.compose.transcription.TranscriptionAnimated
 import io.vopenia.sdk.room.Room
 
 @Composable
@@ -39,51 +40,58 @@ fun RoomScreen(
     val remoteCells = participantCellsState.participantCells
 
     val columns = columns()
+    Column {
+        LazyVerticalGrid(
+            modifier = Modifier.fillMaxWidth().weight(1f),
+            columns = GridCells.Fixed(columns),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            /*item(1) {
+                LocalParticipantCell(Modifier, room, localParticipant)
+            }*/
 
-    SafeArea {
-        Column {
-            LazyVerticalGrid(
-                modifier = Modifier.fillMaxWidth().weight(1f),
-                columns = GridCells.Fixed(columns),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                /*item(1) {
-                    LocalParticipantCell(Modifier, room, localParticipant)
-                }*/
-
-                items(localCells.size) { index ->
-                    localCells[index].let {
-                        ParticipantCell(
-                            Modifier.fillMaxWidth()
-                                .aspectRatio(1f),
-                            room,
-                            room.localParticipant,
-                            it.videoTrack
-                        )
-                    }
-                }
-
-                items(remoteCells.size) { index ->
-                    remoteCells[index].let {
-                        ParticipantCell(
-                            Modifier.fillMaxWidth()
-                                .aspectRatio(1f),
-                            room,
-                            it.participant,
-                            it.videoTrack
-                        )
-                    }
+            items(localCells.size) { index ->
+                localCells[index].let {
+                    ParticipantCell(
+                        Modifier.fillMaxWidth()
+                            .aspectRatio(1f),
+                        room,
+                        room.localParticipant,
+                        it.videoTrack
+                    )
                 }
             }
 
-            RoomScreenBottomActions(
-                Modifier.fillMaxWidth(),
-                app,
-                room
+            items(remoteCells.size) { index ->
+                remoteCells[index].let {
+                    ParticipantCell(
+                        Modifier.fillMaxWidth()
+                            .aspectRatio(1f),
+                        room,
+                        it.participant,
+                        it.videoTrack
+                    )
+                }
+            }
+        }
+
+        TranscriptionAnimated(
+            Modifier.fillMaxWidth(),
+            participantCellsState.currentTranscript?.text ?: "",
+            50L
+        ) { modifier, text ->
+            TextNormal(
+                text = text
             )
         }
+
+        RoomScreenBottomActions(
+            Modifier.fillMaxWidth(),
+            app,
+            room
+        )
     }
 }
 

@@ -64,8 +64,8 @@ fun AppContent() {
     ) {
         SafeArea(
             SafeAreaBehavior(
-                extendToTop = true,
-                extendToBottom = true,
+                extendToTop = false,
+                extendToBottom = false,
                 extendToStart = true,
                 extendToEnd = true
             )

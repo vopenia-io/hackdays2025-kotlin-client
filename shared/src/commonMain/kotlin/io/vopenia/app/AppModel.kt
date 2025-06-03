@@ -65,6 +65,8 @@ interface AppModel {
     fun setAppBarState(appBarState: AppBarState)
 
     fun showWaitingRoom(roomCode: String, onError: () -> Unit)
+
+    fun logout()
 }
 
 class AppModelPreview : AppModel {
@@ -91,6 +93,10 @@ class AppModelPreview : AppModel {
     }
 
     override fun showWaitingRoom(roomCode: String, onError: () -> Unit) {
+        // nothing
+    }
+
+    override fun logout() {
         // nothing
     }
 
@@ -145,7 +151,8 @@ class AppModelImpl : StateViewModel<AppModelState>(AppModelState(NavigateTo.Init
                 updateState {
                     copy(
                         initialized = true,
-                        session = session
+                        session = session,
+                        waitingRoomCode = session?.lastRoomCode,
                     )
                 }
 
@@ -180,7 +187,11 @@ class AppModelImpl : StateViewModel<AppModelState>(AppModelState(NavigateTo.Init
                 updateState { copy(authenticating = true) }
 
                 val info = BackendConnection().token(username, password)
-                val newSession = SavedSession(userName = username, password = password)
+                val newSession = SavedSession(
+                    userName = username,
+                    password = password,
+                    lastRoomCode = states.value.waitingRoomCode
+                )
 
                 sessionFile.write(Json.encodeToString(newSession).toByteArray())
 
@@ -251,8 +262,15 @@ class AppModelImpl : StateViewModel<AppModelState>(AppModelState(NavigateTo.Init
                 }
                 val roomObject = session.room(roomCode)!!
 
+                val newSession = (states.value.session ?: SavedSession()).copy(
+                    lastRoomCode = states.value.waitingRoomCode
+                )
+
+                sessionFile.write(Json.encodeToString(newSession).toByteArray())
+
                 updateState {
                     copy(
+                        session = newSession,
                         loadRoomInfo = false,
                         room = roomObject
                     )
@@ -265,6 +283,16 @@ class AppModelImpl : StateViewModel<AppModelState>(AppModelState(NavigateTo.Init
                         loadRoomInfo = false
                     )
                 }
+            }
+        }
+    }
+
+    override fun logout() {
+        safeLaunch {
+            sessionFile.delete()
+
+            updateState {
+                copy(session = null)
             }
         }
     }
